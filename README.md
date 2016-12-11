@@ -48,8 +48,41 @@ There are four buffered stream classes used to wrap unbuffered streams: Buffered
 - Flushing Buffered Streams
 It often makes sense to write out a buffer at critical points, without waiting for it to fill. This is known as flushing the buffer.
 
--Scanning 
+- Scanning 
 Objects of type Scanner are useful for breaking down formatted input into tokens and translating individual tokens according to their data type.
+
+- random access files 
+使用SeekableByteChannel接口定义可以实现这个功能.因为它继承的channel I/O有记录当前位置的标记.这里几个方法:
+
+   `` position – Returns the channel's current position
+    position(long) – Sets the channel's position
+    read(ByteBuffer) – Reads bytes into the buffer from the channel
+    write(ByteBuffer) – Writes bytes from the buffer to the channel
+    truncate(long) – Truncates the file (or other entity) connected to the channel
+  ``  
+    
+- 方法介绍:Buffer java.nio.Buffer.rewind().
+Rewinds this buffer. The position is set to zero and the mark is discarded. 
+
+Invoke this method before a sequence of channel-write or get operations, assuming that the limit has already been set appropriately. For example: 
+
+ out.write(buf);    // Write remaining data
+ buf.rewind();      // Rewind buffer
+ buf.get(array);    // Copy data into array
+
+- walking a file tree
+首先要实现接口FileVistor:
+``
+    preVisitDirectory – Invoked before a directory's entries are visited.
+    postVisitDirectory – Invoked after all the entries in a directory are visited. If any errors are encountered, the specific exception is passed to the method.
+    visitFile – Invoked on the file being visited. The file's BasicFileAttributes is passed to the method, or you can use the file attributes package to read a specific set of attributes. For example, you can choose to read the file's DosFileAttributeView to determine if the file has the "hidden" bit set.
+    visitFileFailed – Invoked when the file cannot be accessed. The specific exception is passed to the method. You can choose whether to throw the exception, print it to the console or a log file, and so on.
+``
+如果你不需要实现FileVistor接口中所有的方法,那么你可以继承SimpleFileVisitor,然后选择override你所需要的方法.
+
+    
+
+
 
 
  
