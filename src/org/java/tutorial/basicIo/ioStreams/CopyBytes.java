@@ -1,4 +1,4 @@
-package org.java.tutorial.basicIo;
+package org.java.tutorial.basicIo.ioStreams;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
