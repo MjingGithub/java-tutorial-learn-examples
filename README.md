@@ -104,12 +104,16 @@ Invoke this method before a sequence of channel-write or get operations, assumin
 2.继承Thread.覆盖Thread对象的run方法.
 * 一般我们选择使用第一种方法创建一个Thread对象,因为第一种方法中,Runnable对象可以继承自己定义的线程类而第二种只能是Thread子类. * 
 
-##### 使用Sleep方法暂停一个线程的执行
-Thread.sleep()让一个线程暂停一段时间执行.
+##### 使用Sleep方法暂停当前线程的执行
+Thread.sleep()让当前线程暂停一段时间执行.
 
 ##### Interrupts
 中断意味着,这个线程需要停止当前执行的任务,去做其他的任务.
 Interrupt 机制的实现通过一个interrupt status的标识.调用Thread.interrupt会设置这个标识.当一个线程调用Thread.interrupted(),interrupt status标识会清除.非静态方法isInterrupted():通过调用一个线程去查询另外一个线程的状态,则不会改变interrupt status标识.抛出InterruptedException异常时,interrupt status标识也会清除.
+- 非静态方法`public void interrupt()`会设置interrupt status标识,并且让当前线程中断该线程.
+- 静态方法`public static boolean interrupted()`检测是否当前线程已经中断了,interrupt status标识会清除.
+- 非静态方法`public boolean isInterrupted()`检测该线程是否已经中断了,通过调用一个线程去查询另外一个线程的状态,不会改变interrupt status标识.
+
 
 ##### join
 join()方法允许一个线程等待另外一个线程的的完成.假如一个线程t.join().会导致当前线程暂停,执行t线程,直到t线程执行结束.

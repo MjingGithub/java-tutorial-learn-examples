@@ -12,8 +12,27 @@ package org.java.tutorial.concurrency.threadObjects;
 public class HelloRunnable implements Runnable{
 
 	public static void main(String[] args) {
-		(new Thread(new HelloRunnable(), "helloThread")).start(); 
-
+		Thread thred = new Thread(new HelloRunnable(), "helloThread") ;
+		thred.start(); 
+		//activeCount:2
+		System.out.println("activeCount:"+Thread.activeCount()) ;
+		// toString( name, priority,thread group).
+		System.out.println("currentThread:"+Thread.currentThread().toString());//输出Thread[main,5,main]
+		//checkAccess
+		thred.checkAccess() ;
+		//getContextClassLoader
+		//Returns the context ClassLoader for this Thread
+		ClassLoader classLoader = thred.getContextClassLoader() ;
+		System.out.println(classLoader.toString());//输出sun.misc.Launcher$AppClassLoader@73d16e93
+		//dumpStack
+		//Thread.dumpStack();
+		//getState()
+		System.out.println("getState:"+thred.getState().toString());//如果是thred输出是TERMINATED,如果是当前线程因为是main线程,就会是RUNNABLE
+		//getThreadGroup()
+	//	System.out.println(thred.getThreadGroup().toString());//如果是已经终结的线程,会返回null.
+		//System.out.println(Thread.currentThread().getThreadGroup().toString());//主线程输出:java.lang.ThreadGroup[name=main,maxpri=10]
+	long val = Long.parseLong("9223372036854775809");
+	System.out.println(val); 
 	}
 
 	@Override

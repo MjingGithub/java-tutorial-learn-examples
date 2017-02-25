@@ -31,13 +31,13 @@ public class JoinDemo implements Runnable{
 		Thread b = new Thread(d,"b") ;
 		
 		a.start();
+		b.start();
 		try {
 			a.join();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		b.start();
 		for(int x=1; x<100; x++)
 			System.out.println(Thread.currentThread().getName() + "..."+x);
 
